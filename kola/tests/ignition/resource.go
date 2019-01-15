@@ -82,8 +82,9 @@ func init() {
 		Name:        "coreos.ignition.v2_1.resource.remote",
 		Run:         resourceRemote,
 		ClusterSize: 1,
+		Flags:       []register.Flag{register.RequiresInternetAccess},
 		// https://github.com/coreos/bugs/issues/2205 for DO
-		ExcludePlatforms: []string{"qemu", "do"},
+		ExcludePlatforms: []string{"do"},
 		UserData: conf.Ignition(`{
 		  "ignition": {
 		      "version": "2.1.0"

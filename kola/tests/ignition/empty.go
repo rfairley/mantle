@@ -28,7 +28,8 @@ func init() {
 		Name:             "cl.ignition.misc.empty",
 		Run:              empty,
 		ClusterSize:      1,
-		ExcludePlatforms: []string{"qemu", "esx"},
+		Flags:            []register.Flag{register.RequiresInternetAccess},
+		ExcludePlatforms: []string{"esx"},
 		Distros:          []string{"cl"},
 		UserData:         conf.Empty(),
 	})
@@ -37,18 +38,19 @@ func init() {
 		Name:             "cl.ignition.v1.noop",
 		Run:              empty,
 		ClusterSize:      1,
-		ExcludePlatforms: []string{"qemu", "esx", "openstack"},
+		ExcludePlatforms: []string{"esx", "openstack"},
 		Distros:          []string{"cl"},
-		Flags:            []register.Flag{register.NoSSHKeyInUserData},
-		UserData:         conf.Ignition(`{"ignitionVersion": 1}`),
+		Flags: []register.Flag{register.NoSSHKeyInUserData,
+			register.RequiresInternetAccess},
+		UserData: conf.Ignition(`{"ignitionVersion": 1}`),
 	})
 	register.Register(&register.Test{
 		Name:             "cl.ignition.v2.noop",
 		Run:              empty,
 		ClusterSize:      1,
-		ExcludePlatforms: []string{"qemu", "esx", "openstack"},
+		ExcludePlatforms: []string{"esx", "openstack"},
+		Flags:            []register.Flag{register.RequiresInternetAccess},
 		Distros:          []string{"cl"},
-		Flags:            []register.Flag{register.NoSSHKeyInUserData},
 		UserData:         conf.Ignition(`{"ignition":{"version":"2.0.0"}}`),
 	})
 }

@@ -192,6 +192,11 @@ func filterTests(tests map[string]*register.Test, pattern, platform string, vers
 			continue
 		}
 
+		if platform == "qemu" && t.HasFlag(register.RequiresInternetAccess) {
+			plog.Debugf("skipping test %s: Internet required but not supported by platform %s", t.Name, platform)
+			continue
+		}
+
 		isAllowed := func(item string, include, exclude []string) bool {
 			allowed := true
 			for _, i := range include {

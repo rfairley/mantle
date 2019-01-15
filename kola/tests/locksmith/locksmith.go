@@ -45,7 +45,7 @@ etcd:
   initial_advertise_peer_urls: http://{PRIVATE_IPV4}:2380
   listen_peer_urls:            http://{PRIVATE_IPV4}:2380
   discovery:                   $discovery`),
-		ExcludePlatforms: []string{"qemu"}, // etcd-member requires networking
+		Flags:   []register.Flag{register.RequiresInternetAccess}, // etcdctl health-check requires networking
 		Distros:          []string{"cl"},
 	})
 	register.Register(&register.Test{
@@ -100,8 +100,8 @@ etcd:
     ]
   }
 }`),
-		ExcludePlatforms: []string{"qemu"}, // etcd-member requires networking
-		Distros:          []string{"cl"},
+		Flags:   []register.Flag{register.RequiresInternetAccess},
+		Distros: []string{"cl"},
 	})
 }
 
